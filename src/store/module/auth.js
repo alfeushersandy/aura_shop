@@ -19,6 +19,15 @@ const auth = {
         AUTH_SUCCESS(state, token, user) {
             state.token = token 
             state.user = user 
+        },
+
+        GET_USER(state, user){
+            state.user = user
+        },
+
+        AUTH_LOGOUT(state) {
+            state.token = ''
+            state.user = {}
         }
      }, 
 
@@ -60,11 +69,51 @@ const auth = {
                     reject(error.response.data)
                 })
             })
+        },
+
+        getUser({commit}) {
+            //ambil data token dari localstorage
+            const token = localStorage.getItem('token')
+
+            Api.defaults.headers.common['Authorization'] = 'Bearer ' + token
+            Api.get('/user')
+            .then(response => {
+                //commit ke mutation GET_USER untuk merubah/mengirim state
+                commit('GET_USER', response.data.user)
+            })
+        }, 
+
+        logout({commit}) {
+            //define callback promise
+            return new Promise((resolve) => {
+                //commit ke mutation AUTH_LOGOUT
+                commit('AUTH_LOGOUT')
+
+                //remove value dari local storage
+                localStorage.removeItem('token')
+                localStorage.removeItem('user')
+
+                //delete header axios
+                delete Api.defaults.headers.common['Authorization']
+
+                //return resolve ke component
+                resolve()
+
+            })
         }
     }, 
 
     //getters
     getters: {
+        //get current user
+        currentUser(state) {
+            return state.user // <-- return dengan data user
+        },
+
+        //loggedIn
+        isLoggedIn(state) {
+            return state.token // return dengan data token
+        },
 
     }
 }

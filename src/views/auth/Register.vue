@@ -2,7 +2,7 @@
     <div class="container-fluid mb-5 mt-4">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="card border-0 shadow rounded">
+                <div class="card border-0 shadow rounded register-card">
                     <div class="card-body">
                         <h4>REGISTER</h4>
                         <hr>

@@ -1,5 +1,5 @@
 <template>
-    <footer style="background: #ffffff;border-top: 5px solid #6677ef;" class="pt-5">
+    <footer style="background: #ffffff;border-top: 5px solid #6677ef;" class="pt-5 mb-0">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-5 mb-4">
