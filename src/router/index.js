@@ -17,14 +17,61 @@ const routes = [
         component: () => import(/* webpackChunkName: "login" */ '../views/auth/Login.vue')
     },
     {
-        path: '/dashboard',
+        path: '/customer/dashboard',
         name: 'dashboard',
-        component: () => import(/* webpackChunkName: "dashboard" */  '../views/dashboard/Index.vue')
+        component: () => import(/* webpackChunkName: "dashboard" */  '../views/dashboard/Index.vue'),
         //check harus login
-        // meta: {
-        //     requiresAuth: true
-        // }
-    }
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/customer/order',
+        name: 'order',
+        component: () => import(/*webpackChunkName: "order" */ '../views/order/Index.vue'),
+        //check harus login
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/customer/order/:snap_token',
+        name: 'detail_order',
+        component: () => import(/* webpackChunkName: "detail_order" */ '../views/order/Show.vue'),
+        meta: {
+          //chek is loggedIn
+          requiresAuth: true
+        }
+    },
+    {
+        path: '/',
+        name: 'home',
+        component: () => import(/* webpackChunkName: "home" */ '../views/home/Index.vue')
+    },
+    {
+        path: '/product/:slug',
+        name: 'detail_product',
+        component: () => import(/* webpackChunkName: "detail_product" */ '../views/product/Show.vue')
+    },
+    {
+        path: '/categories',
+        name: 'categories',
+        component: () => import(/* webpackChunkName: "category" */ '../views/category/Index.vue')
+    },
+    {
+        path: '/category/:slug',
+        name: 'detail_category',
+        component: () => import(/* webpackChunkName: "detail_category" */ '../views/category/Show.vue')
+    },
+    {
+        path: '/cart',
+        name: 'cart',
+        component: () => import(/* webpackChunkName: "cart" */ '../views/cart/Index.vue'),
+        meta: {
+          //chek is loggedIn
+          requiresAuth: true
+        }
+      }
 ]
 
 //create router 
@@ -41,7 +88,6 @@ router.beforeEach((to, from, next) => {
             next()
             return
         }
-
         next('/login')
     } else {
         next()
