@@ -1,6 +1,9 @@
 //import vue router
 import { createRouter, createWebHistory } from "vue-router";
 
+import NProgress from 'nprogress';
+import '../../node_modules/nprogress/nprogress.css'
+
 //import store vuex
 import store from '../store'
 
@@ -93,5 +96,19 @@ router.beforeEach((to, from, next) => {
         next()
     }
 })
+
+router.beforeResolve((to, from, next) => {
+    // If this isn't an initial page load.
+    if (to.name) {
+        // Start the route progress bar.
+        NProgress.start()
+    }
+    next()
+  })
+  
+  router.afterEach(() => {
+    // Complete the animation of the route progress bar.
+    NProgress.done()
+  })
 
 export default router
